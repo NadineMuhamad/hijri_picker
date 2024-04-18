@@ -810,6 +810,7 @@ class HijriDayPicker extends StatelessWidget {
         _getDayHeaders(context, themeData.textTheme.bodySmall, localizations));
 
     for (int i = 0; true; i += 1) {
+        print("=================");
       final int day = i - firstDayOffset + 1;
       if (day > daysInMonth) break;
       if (day < 1) {
@@ -846,6 +847,7 @@ class HijriDayPicker extends StatelessWidget {
             currentDate.hMonth == month &&
             currentDate.hDay == day) {
           // The current day gets a different text color.
+             print("=================2");
           itemStyle = themeData.textTheme.bodyLarge
               ?.copyWith(color: Colors.black);
         }
