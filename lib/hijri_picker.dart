@@ -847,7 +847,7 @@ class HijriDayPicker extends StatelessWidget {
             currentDate.hDay == day) {
           // The current day gets a different text color.
           itemStyle = themeData.textTheme.bodyLarge
-              ?.copyWith(color: themeData.colorScheme.secondary);
+              ?.copyWith(color: Colors.black);
         }
 
         final String dayText = localizations.formatDecimal(day);
