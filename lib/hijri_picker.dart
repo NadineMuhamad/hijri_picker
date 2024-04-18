@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:intl/intl.dart' hide TextDirection;
+
 
 import 'package:hijri_picker/src/hijri_calendar_builders.dart';
 
@@ -284,9 +286,9 @@ class _DatePickerHeader extends StatelessWidget {
         break;
     }
     final TextStyle? dayStyle =
-        headerTextTheme.headlineMedium?.copyWith(color: dayColor, height: 1.4);
+        headerTextTheme.headlineMedium?.copyWith(color: Colors.white, height: 1.4);
     final TextStyle? yearStyle =
-        headerTextTheme.titleMedium?.copyWith(color: yearColor, height: 1.4);
+        headerTextTheme.titleMedium?.copyWith(color: Colors.white, height: 1.4);
 
     Color backgroundColor;
     switch (themeData.brightness) {
@@ -347,15 +349,34 @@ class _DatePickerHeader extends StatelessWidget {
       ),
     );
 
+    final Widget dayGeoButton = IgnorePointer(
+      ignoring: true,
+      ignoringSemantics: false,
+      child: _DateHeaderButton(
+        color: backgroundColor,
+        onTap: Feedback.wrapForTap(
+                () => _handleChangeMode(DatePickerMode.day), context),
+        child: Semantics(
+          selected: mode == DatePickerMode.day,
+          child: FittedBox(
+            fit: BoxFit.fitHeight,
+            child: Text("${DateFormat("d,yyyy MMMM").format(HijriCalendar().hijriToGregorian(hSelectedDate.hYear,hSelectedDate.hMonth, hSelectedDate.hDay))}",
+                style: TextStyle(color: Colors.white)),
+          ),
+        ),
+      ),
+    );
+
     return Container(
       width: width,
-      height: height,
+      // height: height,
       padding: padding,
       color: backgroundColor,
       child: Column(
         mainAxisAlignment: mainAxisAlignment,
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[yearButton, dayButton],
+        children: <Widget>[SizedBox(height:10), yearButton, dayButton,dayGeoButton,SizedBox(height:10),],
       ),
     );
   }
